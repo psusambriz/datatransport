@@ -2,21 +2,15 @@
 import requests
 import json
 
-# get url
-car1 = "https://busdata.cs.pdx.edu/api/getBreadCrumbs?vehicle_id=2905"
-car2 = "https://busdata.cs.pdx.edu/api/getBreadCrumbs?vehicle_id=2907"
-# get request
-response = requests.get(car1)
-response2 = requests.get(car2)
+vehicle_ids = [2905,2908]
+all_data = []
 
-data1 = response.json()
-data2 = response2.json()
+for vid in vehicle_ids:
+    response = requests.get(f"https://busdata.cs.pdx.edu/api/getBreadCrumbs?vehicle_id={vid}")
+    if response.status_code == 200:
+        all_data.extend(response.json())
+    else:
+        print(f"Failed to get data for vehicle ID {vid}")
 
-# 
-combined_data = {
-    "car1": data1,
-    "car2": data2
-}
-# write the .json files
-with open("combined_data.json","w") as f:
-    json.dump(combined_data,f,indent=2)
+with open("bcsample.json","w") as f:
+    json.dump(all_data,f,indent=2)

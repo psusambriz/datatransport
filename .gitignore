@@ -1,0 +1,4 @@
+bcsample.json
+__pycache__
+*.log
+values.py

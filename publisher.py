@@ -24,3 +24,9 @@ for crumb in breadcrumbs:
     time.sleep(0.1)
 
 print(f"Total messages sent: {len(breadcrumbs)}")
+
+from datetime import datetime
+
+# Helper: parse ISO 8601 timestamp to datetime object
+def parse_time(entry):
+    return datetime.fromisoformat(entry["timestamp"])
